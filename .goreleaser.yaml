@@ -10,9 +10,11 @@ builds:
   - env:
       - CGO_ENABLED=0
     main: ./cmd/goforward 
+    # Default: [ 'darwin', 'linux', 'windows' ]
     goos:
       - linux
       - darwin
+      - windows
 
 archives:
   - format: tar.gz

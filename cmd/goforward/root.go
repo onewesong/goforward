@@ -105,7 +105,7 @@ func runServer(cfg *config.Config) (err error) {
 		s := <-c
 		log.Info("agent get a signal %s\n", s.String())
 		switch s {
-		case syscall.SIGQUIT, syscall.SIGTERM, syscall.SIGSTOP, syscall.SIGINT:
+		case syscall.SIGQUIT, syscall.SIGTERM, syscall.SIGINT:
 			log.Info("agent exit")
 			return
 		case syscall.SIGHUP:
