@@ -63,7 +63,7 @@ var rootCmd = &cobra.Command{
 		if err != nil {
 			return err
 		}
-		err = runServer(*cfg)
+		err = runServer(cfg)
 		if err != nil {
 			fmt.Println(err)
 			os.Exit(1)
@@ -79,7 +79,7 @@ func Execute() {
 	}
 }
 
-func runServer(cfg config.Config) (err error) {
+func runServer(cfg *config.Config) (err error) {
 	log.InitLog(cfg.LogWay, cfg.LogFile, cfg.LogLevel, cfg.LogMaxDays, cfg.DisableLogColor)
 
 	if cfgFile != "" {

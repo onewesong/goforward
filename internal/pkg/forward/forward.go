@@ -111,9 +111,9 @@ func (f *Forward) MarshalJSON() ([]byte, error) {
 	})
 }
 
-func NewForward(ForwardLink models.ForwardLink) *Forward {
+func NewForward(forwardLink models.ForwardLink) *Forward {
 	return &Forward{
-		Link: ForwardLink,
+		Link: forwardLink,
 		quit: make(chan bool, 1),
 	}
 }

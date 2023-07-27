@@ -11,7 +11,7 @@ import (
 func Del(c *gin.Context) {
 	m := manager.GetInstance()
 	listenAddr := c.Param("listen_addr")
-	if len(listenAddr) == 0 {
+	if listenAddr == "" {
 		c.JSON(400, gin.H{"error": "listen_addr is empty"})
 		return
 	}

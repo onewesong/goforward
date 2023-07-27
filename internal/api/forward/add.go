@@ -16,7 +16,7 @@ type AddForwardRequest struct {
 func Add(c *gin.Context) {
 	var request AddForwardRequest
 	c.ShouldBindJSON(&request)
-	if len(request.ForwardLink) == 0 {
+	if request.ForwardLink == "" {
 		c.JSON(400, gin.H{"error": "forward link is empty"})
 		return
 	}

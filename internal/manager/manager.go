@@ -11,10 +11,10 @@ type Manager struct {
 	ForwardMap map[string]*forward.Forward
 }
 
-func (m Manager) AddForward(ForwardLinks models.ForwardLinks, override bool) error {
-	for _, i := range ForwardLinks {
+func (m Manager) AddForward(forwardLinks models.ForwardLinks, override bool) error {
+	for _, i := range forwardLinks {
 		key := i.ListenAddr.String()
-		forward := forward.NewForward(i)
+		forwardIns := forward.NewForward(i)
 		if f, ok := m.ForwardMap[key]; ok {
 			if override {
 				err := f.Stop()
@@ -25,11 +25,11 @@ func (m Manager) AddForward(ForwardLinks models.ForwardLinks, override bool) err
 				return fmt.Errorf("forward %s already exists, if want to override, set param override to true", key)
 			}
 		}
-		err := forward.Start()
+		err := forwardIns.Start()
 		if err != nil {
 			return fmt.Errorf("forward %s start err: %s", key, err)
 		}
-		m.ForwardMap[key] = forward
+		m.ForwardMap[key] = forwardIns
 	}
 	return nil
 }
