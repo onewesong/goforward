@@ -1,22 +1,36 @@
+name: goreleaser
+
 on:
   workflow_dispatch:
-  release:
-    types: [created]
+  push:
+    tags:
+      - "v*"
 
 permissions:
-    contents: write
-    packages: write
+  contents: write
 
 jobs:
-  release-linux-amd64:
-    name: release linux/amd64
+  goreleaser:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    - uses: wangyoucao577/go-release-action@v1
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        goos: linux
-        goarch: amd64
-        goversion: 1.19
-        project_path: ./cmd/goforward
+      -
+        name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      -
+        name: Set up Go
+        uses: actions/setup-go@v4
+      -
+        name: Run GoReleaser
+        uses: goreleaser/goreleaser-action@v4
+        with:
+          # either 'goreleaser' (default) or 'goreleaser-pro'
+          distribution: goreleaser
+          version: latest
+          args: release --clean
+          workdir: ./cmd/goforward
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Your GoReleaser Pro key, if you are using the 'goreleaser-pro' distribution
+          # GORELEASER_KEY: ${{ secrets.GORELEASER_KEY }}
